@@ -1,0 +1,78 @@
+<!Doctype html>
+<html>
+<head>
+<title>Диаграмма</title>
+<script type="text/javascript">
+function graph()
+{var graphCanvas = document.getElementById('barChart');
+if(graphCanvas && graphCanvas.getContext)
+{var context = graphCanvas.getContext('2d');
+drawBarChart(context, data, 50, 100, (graphCanvas.height - 20), 50);}
+}
+
+var data = new Array(5);
+data[0] = "Первый, 200";
+data[1] = "Второй, 120";
+data[2] = "Третий, 80";
+data[3] = "Четвёртый, 330";
+data[4] = "Пятый, 345";
+
+function drawBarChart(context, data, startX, barWidth, chartHeight, markDataIncrementsIn)
+{context.lineWidth = "1.0";
+var startY = 380;
+drawLine(context, startX, startY, startX, 30);
+drawLine(context, startX, startY, 570, startY);
+context.lineWidth = "0.0";
+var maxValue = 0;
+for (var i=0; i<data.length; i++)
+{var values = data[i].split(",");
+var name = values[0];
+var height = parseInt(values[1]);
+if (parseInt(height) > parseInt(maxValue)) maxValue = height;
+context.fillStyle = "red";
+drawRectangle(context, startX + (i * barWidth) + i,(chartHeight - height), barWidth, height, true);
+context.textAlign = "left";
+context.fillStyle ="#000";
+context.fillText(name, startX + (i * barWidth) + i, chartHeight + 10, 200);}
+var numMarkers = Math.ceil(maxValue/markDataIncrementsIn);
+context.textAlign = "right";
+context.fillStyle ="#000";
+var markerValue = 0;
+for (var i=0; i<numMarkers; i++)
+{context.fillText(markerValue, (startX  - 5), (chartHeight - markerValue), 50);
+markerValue += markDataIncrementsIn;
+}}
+
+function drawLine(contextO, startx, starty, endx, endy)
+{contextO.beginPath();
+contextO.moveTo(startx, starty);
+contextO.lineTo(endx, endy);
+contextO.closePath();
+contextO.stroke();}
+
+function drawRectangle(contextO, x,y,w,h,fill)
+{contextO.beginPath();
+contextO.rect(x,y,w,h);
+contextO.closePath();
+contextO.stroke();
+if (fill) contextO.fill();
+}
+</script>
+</head>
+<body onLoad="graph();">
+<article>
+<form>
+<input type="text" id="dannie1" value="Введите значение первого столбца"/>
+<input type="text" id="dannie2" value="Введите значение первого столбца"/>
+<input type="text" id="dannie3" value="Введите значение первого столбца"/>
+<input type="text" id="dannie4" value="Введите значение первого столбца"/>
+<input type="text" id="dannie5" value="Введите значение первого столбца"/>
+<input type="button" id="knopka1 value="draw" onclick="GetD()"/>
+</form>
+</article>
+<article>
+<canvas id="barChart" width="600" height="400">
+</canvas>
+</article>
+</body>
+</html>
