@@ -1,2 +1,2 @@
 # Diagramma
-<img src="Diagramma.jpg" alt="img"/>
+<img src="Diagramma.png" alt="img"/>
